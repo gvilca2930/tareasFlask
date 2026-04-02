@@ -1,34 +1,17 @@
-import sqlite3
+import os
+from dotenv import load_dotenv
+import psycopg2
+from psycopg2.extras import RealDictCursor
 
-DB = "task.db"
+load_dotenv()
 
 def get_connection():
-    conn = sqlite3.connect(DB)
-    conn.row_factory = sqlite3.Row
-    return conn
-
-def init_db():
-    conn = get_connection()
-    cursor = conn.cursor()
-    
-    #Tabla de tareas
-    cursor.execute("""
-    CREATE TABLE IF NOT EXISTS tasks (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        title TEXT NOT NULL,
-        done BOOLEAN NOT NULL
+    return psycopg2.connect(
+        host = os.getenv("DB_HOST"),
+        database = os.getenv("DB_NAME"),
+        user = os.getenv("DB_USER"),
+        password = os.getenv("DB_PASSWORD"),
+        cursor_factory = RealDictCursor
     )
-    """)
-    
-    #Tabla de usuarios JWT
-    
-    cursor.execute("""
-    CREATE TABLE IF NOT EXISTS users (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        username TEXT UNIQUE NOT NULL,
-        password TEXT NOT NULL
-    )
-    """)
 
-    conn.commit()
-    conn.close()
+

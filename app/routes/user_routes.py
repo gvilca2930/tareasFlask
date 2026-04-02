@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from flask_jwt_extended import create_access_token
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 from app.services.user_services import create_user, check_user, update_password
 
 user_bp = Blueprint('user_bp', __name__)
@@ -27,15 +27,18 @@ def login():
     return jsonify(access_token=access_token)
 
 @user_bp.route('/update', methods=['POST'])
+@jwt_required()
 def update():
     data = request.get_json()
 
-    success = update_password(
-        data['username'],
-        data['current_password'],
-        data['new_password']
-    )
+    current_user_id = get_jwt_identity()
 
-    if success:
-        return jsonify({"message" : "Password actualizado"})
-    return jsonify({"message" : "Credenciales Incorrectas"}), 400
+    current_password = data.get("current_password")
+    new_password = data.get("new_password")
+
+    result = update_password(current_user_id, current_password, new_password)
+
+    if not result:
+        return {"message" : "Password incorrecto"}, 400
+
+    return {"message" : "Password actualizado"}, 200
