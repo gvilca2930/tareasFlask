@@ -96,7 +96,7 @@ Body:
 
 ### Actualizar tarea
 
-PUT /tasks/`<id>`{=html}\
+PUT /tasks/`<id>`\
 🔒 Requiere autenticación
 
 Body:
@@ -112,7 +112,7 @@ Body:
 
 ### Eliminar tarea
 
-DELETE /tasks/`<id>`{=html}\
+DELETE /tasks/`<id>`\
 🔒 Requiere autenticación
 
 ------------------------------------------------------------------------
@@ -185,15 +185,6 @@ Ejemplo:
   "message": "Usuario o password incorrectos"
 }
 ```
-
-------------------------------------------------------------------------
-
-## 📁 Estructura del proyecto
-
-tareasFlask/ │ ├── app/ │ ├── routes/ │ ├── services/ │ └── ... │ ├──
-run.py\
-├── requirements.txt\
-└── README.md
 
 ------------------------------------------------------------------------
 
