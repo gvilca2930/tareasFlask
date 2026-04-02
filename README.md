@@ -1,106 +1,221 @@
-# API de tareas con Flask
+# 📝 API de Tareas con Flask
 
-API REST desarrollada en Python con Flask para la gestion de tareas (To-Do) con autenticacion mediante JWT y control de acceso por usuario.
+API REST desarrollada en Python con Flask para la gestión de tareas
+(To-Do), con autenticación mediante JWT y control de acceso por usuario.
 
----
+------------------------------------------------------------------------
 
-## Caracteristicas
+## 🚀 Características
 
-- Autenticacion con JWT
-- Registro y login de usuarios
-- Hashing de passwords
-- Cambio de passwords validando la anterior
-- CRUD de tareas
-- Multiusuario (Cada usuario solo ve sus tareas)
-- Arquitectura modular (Rutas y servicios separados)
+-   🔐 Autenticación con JWT\
+-   👤 Registro y login de usuarios\
+-   🔒 Hashing seguro de contraseñas\
+-   🔄 Cambio de contraseña validando la contraseña actual\
+-   📋 CRUD de tareas\
+-   👥 Multiusuario (cada usuario solo puede ver y gestionar sus propias
+    tareas)\
+-   🧩 Arquitectura modular (separación de rutas y servicios)
 
----
+------------------------------------------------------------------------
 
-## Tecnologias
+## 🛠️ Tecnologías
 
-- Python
-- Flask
-- SQLite
-- JWT
+-   Python\
+-   Flask\
+-   SQLite\
+-   JWT (flask-jwt-extended)
 
----
+------------------------------------------------------------------------
 
-## Autenticacion
+## 🔐 Autenticación
 
 ### Login
+
 POST /api/users/login
 
 Body:
 
+``` json
 {
-    "username" : "usuario",
-    "password" : "password"
+  "username": "usuario",
+  "password": "password"
 }
+```
 
 Respuesta:
 
+``` json
 {
-    "access_token" : "TOKEN"
+  "access_token": "TOKEN"
 }
+```
 
 ### Uso del Token
 
-Authorization : Bearer TOKEN
+Para acceder a rutas protegidas, enviar el token en el header:
 
-## EndPoints
+Authorization: Bearer TOKEN
 
-### Obtener Tareas
-GET /tasks -> Requiere autenticacion
+------------------------------------------------------------------------
+
+## 📋 Endpoints de Tareas
+
+### Obtener tareas
+
+GET /tasks\
+🔒 Requiere autenticación
 
 Respuesta:
 
+``` json
 [
-    {
-        "id" : 1,
-        "title" : "Tarea 1",
-        "done" : False
-    }
+  {
+    "id": 1,
+    "title": "Tarea 1",
+    "done": false
+  }
 ]
+```
 
-### Crear Tareas
-POST /tasks -> Requiere autenticacion
+------------------------------------------------------------------------
 
-Body:
-{
-    "title" : "Nueva Tarea"
-}
+### Crear tarea
 
-### Actualizar Tarea
-PUT /tasks/<id> -> Requiere autenticacion
+POST /tasks\
+🔒 Requiere autenticación
 
 Body:
+
+``` json
 {
-    "title" : "Actualizacion nombre de la tarea",
-    "done" : True
+  "title": "Nueva tarea"
 }
+```
 
-### Eliminar Tarea
-DELETE /tasks/<id> -> Requiere autenticacion
+------------------------------------------------------------------------
 
-## Servicios Users
+### Actualizar tarea
 
-### Registro de Usuarios
+PUT /tasks/`<id>`{=html}\
+🔒 Requiere autenticación
+
+Body:
+
+``` json
+{
+  "title": "Nuevo título",
+  "done": true
+}
+```
+
+------------------------------------------------------------------------
+
+### Eliminar tarea
+
+DELETE /tasks/`<id>`{=html}\
+🔒 Requiere autenticación
+
+------------------------------------------------------------------------
+
+## 👤 Servicios de Usuario
+
+### Registro de usuario
+
 POST /api/users/register
 
 Body:
-{
-    "username" : "usuario",
-    "password" : "password"
-}
 
-### Actualizacion de Password
-    -Agregar autorizacion en la ruta-
-POST /api/users/update
+``` json
+{
+  "username": "usuario",
+  "password": "password"
+}
+```
+
+Respuesta:
+
+``` json
+{
+  "message": "Usuario creado correctamente"
+}
+```
+
+------------------------------------------------------------------------
+
+### Actualización de contraseña
+
+POST /api/users/update\
+🔒 Requiere autenticación
+
+⚠️ Es necesario enviar el token JWT en el header Authorization.
 
 Body:
-{
-    "username" : "usuario",
-    "current_password" : "password_actual",
-    "new_password" : "nuevo_password"
-}
 
+``` json
+{
+  "username": "usuario",
+  "current_password": "password_actual",
+  "new_password": "nuevo_password"
+}
+```
+
+Respuesta:
+
+``` json
+{
+  "message": "Contraseña actualizada correctamente"
+}
+```
+
+------------------------------------------------------------------------
+
+## ⚠️ Manejo de errores
+
+La API utiliza códigos HTTP estándar:
+
+-   400 → Datos inválidos\
+-   401 → No autenticado\
+-   403 → No autorizado\
+-   404 → Recurso no encontrado
+
+Ejemplo:
+
+``` json
+{
+  "message": "Usuario o password incorrectos"
+}
+```
+
+------------------------------------------------------------------------
+
+## 📁 Estructura del proyecto
+
+tareasFlask/ │ ├── app/ │ ├── routes/ │ ├── services/ │ └── ... │ ├──
+run.py\
+├── requirements.txt\
+└── README.md
+
+------------------------------------------------------------------------
+
+## 🔒 Seguridad
+
+-   Contraseñas almacenadas con hash seguro\
+-   Autenticación basada en JWT\
+-   Validación de usuario en cada operación\
+-   Protección de rutas sensibles
+
+------------------------------------------------------------------------
+
+## 🚀 Próximas mejoras
+
+-   Migración a MySQL / PostgreSQL\
+-   Implementación de ORM (SQLAlchemy)\
+-   Pruebas automatizadas\
+-   Despliegue en la nube\
+-   Sistema de roles (admin / user)
+
+------------------------------------------------------------------------
+
+## 👨‍💻 Autor
+
+George Vilca
