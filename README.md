@@ -7,22 +7,22 @@ API REST desarrollada en Python con Flask para la gestión de tareas
 
 ## 🚀 Características
 
--   🔐 Autenticación con JWT\
--   👤 Registro y login de usuarios\
--   🔒 Hashing seguro de contraseñas\
--   🔄 Cambio de contraseña validando la contraseña actual\
--   📋 CRUD de tareas\
--   👥 Multiusuario (cada usuario solo puede ver y gestionar sus propias
-    tareas)\
--   🧩 Arquitectura modular (separación de rutas y servicios)
+-   Autenticación con JWT
+-   Registro y login de usuarios
+-   Hashing seguro de contraseñas
+-   Cambio de contraseña validando la contraseña actual
+-   CRUD de tareas
+-   Multiusuario (cada usuario solo puede ver y gestionar sus propias
+    tareas)
+-   Arquitectura modular (separación de rutas y servicios)
 
 ------------------------------------------------------------------------
 
 ## 🛠️ Tecnologías
 
--   Python\
--   Flask\
--   SQLite\
+-   Python
+-   Flask
+-   SQLite
 -   JWT (flask-jwt-extended)
 
 ------------------------------------------------------------------------
