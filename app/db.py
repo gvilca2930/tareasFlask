@@ -10,14 +10,14 @@ def get_connection():
     
     
     #Si existe Render
-    if database_url and database_url.startswith("postgres://"):
-        database_url = database_url.replace("postgres://", "postgresql://", 1)
+    if database_url:
+        if database_url.startswith("postgres://"):
+            database_url = database_url.replace("postgres://", "postgresql://", 1)
 
         return psycopg2.connect(
             database_url,
-            cursor_factory = RealDictCursor
-        )
-    
+            cursor_factory=RealDictCursor
+        )    
     #Si no existe local
     return psycopg2.connect(
         host=os.getenv("DB_HOST"),
