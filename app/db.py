@@ -6,12 +6,16 @@ from psycopg2.extras import RealDictCursor
 load_dotenv()
 
 def get_connection():
+    database_url = os.getenv("DATABASE_URL")
+    
+    if not database_url:
+        raise Exception("DATABASE_URL no esta configurada")
+
+    if database_url and database_url.startswith("postgres://"):
+        database_url = database_url.replace("postgres://", "postgresql://", 1)
+
     return psycopg2.connect(
-        host = os.getenv("DB_HOST"),
-        database = os.getenv("DB_NAME"),
-        user = os.getenv("DB_USER"),
-        password = os.getenv("DB_PASSWORD"),
+        database_url,
         cursor_factory = RealDictCursor
     )
-
 
